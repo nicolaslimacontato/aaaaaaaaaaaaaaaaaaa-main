@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Personagem</title>
+    <link rel="stylesheet" href="./output.css">
+</head>
+
+<body class="bg-gray-100">
+    <form autocomplete="off" class="p-3 flex flex-col items-center box-content">
+        <!-- Cabeça -->
+        <div class="bg-no-repeat bg-cover w-auto h-[130px] flex flex-col md:flex-row items-center mt-3"
+            style="background-image: url('https://app.roll20.net/images/dndstyling/CharScroll.svg');">
+            <div class="w-[250px] ml-[60px] md:mb-96">
+                <input type="text" class="w-10/12 h-7 bg-[#f5f5f5] p-3 text-center mt-8"
+                    placeholder="Nome do Personagem">
+            </div>
+            <div class="ml-[70px] p-[10px] bg-cover w-[480px] h-[100px] flex items-center mt-4 md:mt-0"
+                style="background-image: url('https://app.roll20.net/images/dndstyling/CharBox.svg'); background-position: 0;">
+                <div class="grid grid-cols-3 gap-x-2 gap-y-1 w-full">
+                    <input type="text" class="bg-[#f5f5f5] p-1 text-center text-xs h-7" placeholder="Raça">
+                    <input type="text" class="bg-[#f5f5f5] p-1 text-center text-xs h-7" placeholder="Classe">
+                    <input type="text" class="bg-[#f5f5f5] p-1 text-center text-xs h-7" placeholder="Nível">
+                    <input type="text" class="bg-[#f5f5f5] p-1 text-center text-xs h-7" placeholder="Antecedente">
+                    <input type="text" class="bg-[#f5f5f5] p-1 text-center text-xs h-7" placeholder="Alinhamento">
+                    <input type="text" class="bg-[#f5f5f5] p-1 text-center text-xs h-7" placeholder="XP">
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full md:w-auto mt-[22px] mx-auto">
+            <!-- Attributes -->
+            <div class="w-full mt-8 mx-auto">
+                <div class="bg-gray-200 p-4 rounded-lg">
+                    <div class="flex flex-wrap justify-around gap-4">
+                        <!-- Attribute Template -->
+                        <div class="text-center w-full sm:w-auto flex-1">
+                            <span class="text-sm font-semibold text-gray-700 mb-1 block">Força</span>
+                            <div
+                                class="relative w-20 h-20 mx-auto flex flex-col justify-center items-center bg-white rounded-full border-2 border-gray-300">
+                                <span id="strMod" class="text-xl font-bold">+0</span>
+                                <div class="flex justify-center items-center">
+                                    <input type="number" id="str" class="ml-3 text-center bg-transparent text-lg w-full"
+                                        value="10" min="1" max="20">
+                                </div>
+                            </div>
+                            <div class="mt-2 flex justify-center gap-2">
+                                <button type="button" onclick="adjustAttribute('str', -1)"
+                                    class="px-2 py-1 bg-red-500 text-white rounded">-</button>
+                                <button type="button" onclick="adjustAttribute('str', 1)"
+                                    class="px-2 py-1 bg-green-500 text-white rounded">+</button>
+                            </div>
+                        </div>
+                        <div class="text-center w-full sm:w-auto flex-1">
+                            <span class="text-sm font-semibold text-gray-700 mb-1 block">Destreza</span>
+                            <div
+                                class="relative w-20 h-20 mx-auto flex flex-col justify-center items-center bg-white rounded-full border-2 border-gray-300">
+                                <span id="dexMod" class="text-xl font-bold">+0</span>
+                                <div class="flex justify-center items-center">
+                                    <input type="number" id="dex" class="ml-3 text-center bg-transparent text-lg w-full"
+                                        value="10" min="1" max="20">
+                                </div>
+                            </div>
+                            <div class="mt-2 flex justify-center gap-2">
+                                <button type="button" onclick="adjustAttribute('dex', -1)"
+                                    class="px-2 py-1 bg-red-500 text-white rounded">-</button>
+                                <button type="button" onclick="adjustAttribute('dex', 1)"
+                                    class="px-2 py-1 bg-green-500 text-white rounded">+</button>
+                            </div>
+                        </div>
+                        <div class="text-center w-full sm:w-auto flex-1">
+                            <span class="text-sm font-semibold text-gray-700 mb-1 block">Constituição</span>
+                            <div
+                                class="relative w-20 h-20 mx-auto flex flex-col justify-center items-center bg-white rounded-full border-2 border-gray-300">
+                                <span id="conMod" class="text-xl font-bold">+0</span>
+                                <div class="flex justify-center items-center">
+                                    <input type="number" id="con" class="ml-3 text-center bg-transparent text-lg w-full"
+                                        value="10" min="1" max="20">
+                                </div>
+                            </div>
+                            <div class="mt-2 flex justify-center gap-2">
+                                <button type="button" onclick="adjustAttribute('con', -1)"
+                                    class="px-2 py-1 bg-red-500 text-white rounded">-</button>
+                                <button type="button" onclick="adjustAttribute('con', 1)"
+                                    class="px-2 py-1 bg-green-500 text-white rounded">+</button>
+                            </div>
+                        </div>
+                        <div class="text-center w-full sm:w-auto flex-1">
+                            <span class="text-sm font-semibold text-gray-700 mb-1 block">Inteligencia</span>
+                            <div
+                                class="relative w-20 h-20 mx-auto flex flex-col justify-center items-center bg-white rounded-full border-2 border-gray-300">
+                                <span id="intMod" class="text-xl font-bold">+0</span>
+                                <div class="flex justify-center items-center">
+                                    <input type="number" id="int" class="ml-3 text-center bg-transparent text-lg w-full"
+                                        value="10" min="1" max="20">
+                                </div>
+                            </div>
+                            <div class="mt-2 flex justify-center gap-2">
+                                <button type="button" onclick="adjustAttribute('int', -1)"
+                                    class="px-2 py-1 bg-red-500 text-white rounded">-</button>
+                                <button type="button" onclick="adjustAttribute('int', 1)"
+                                    class="px-2 py-1 bg-green-500 text-white rounded">+</button>
+                            </div>
+                        </div>
+                        <div class="text-center w-full sm:w-auto flex-1">
+                            <span class="text-sm font-semibold text-gray-700 mb-1 block">Sabedoria</span>
+                            <div
+                                class="relative w-20 h-20 mx-auto flex flex-col justify-center items-center bg-white rounded-full border-2 border-gray-300">
+                                <span id="wisMod" class="text-xl font-bold">+0</span>
+                                <div class="flex justify-center items-center">
+                                    <input type="number" id="wis" class="ml-3 text-center bg-transparent text-lg w-full"
+                                        value="10" min="1" max="20">
+                                </div>
+                            </div>
+                            <div class="mt-2 flex justify-center gap-2">
+                                <button type="button" onclick="adjustAttribute('wis', -1)"
+                                    class="px-2 py-1 bg-red-500 text-white rounded">-</button>
+                                <button type="button" onclick="adjustAttribute('wis', 1)"
+                                    class="px-2 py-1 bg-green-500 text-white rounded">+</button>
+                            </div>
+                        </div>
+                        <div class="text-center w-full sm:w-auto flex-1">
+                            <span class="text-sm font-semibold text-gray-700 mb-1 block">Carisma</span>
+                            <div
+                                class="relative w-20 h-20 mx-auto flex flex-col justify-center items-center bg-white rounded-full border-2 border-gray-300">
+                                <span id="chaMod" class="text-xl font-bold">+0</span>
+                                <div class="flex justify-center items-center">
+                                    <input type="number" id="cha" class="ml-3 text-center bg-transparent text-lg w-full"
+                                        value="10" min="1" max="20">
+                                </div>
+                            </div>
+                            <div class="mt-2 flex justify-center gap-2">
+                                <button type="button" onclick="adjustAttribute('cha', -1)"
+                                    class="px-2 py-1 bg-red-500 text-white rounded">-</button>
+                                <button type="button" onclick="adjustAttribute('cha', 1)"
+                                    class="px-2 py-1 bg-green-500 text-white rounded">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <!-- Esquerda -->
+                <div class="space-y-4">
+                    <!-- Bônus de Proficiência -->
+                    <div class="bg-gray-200 p-4 rounded-lg flex flex-col items-center">
+                        <div
+                            class="bg-white rounded-full w-12 h-12 flex items-center justify-center border-2 border-gray-300">
+                            <span class="text-xl font-bold">3</span>
+                        </div>
+                        <span class="text-sm font-semibold text-gray-700 mt-2">Bônus de Proficiência</span>
+                    </div>
+
+                    <!-- Testes de Resistência -->
+                    <div class="bg-gray-200 p-4 rounded-lg flex flex-col">
+                        <span class="text-sm font-semibold text-gray-700">TESTES DE RESISTÊNCIA</span>
+                        <div class="flex flex-col mt-2 space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="res1" class="mr-2">
+                                <label for="res1" class="text-sm text-gray-700">Força</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="res2" class="mr-2">
+                                <label for="res2" class="text-sm text-gray-700">Destreza</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="res3" class="mr-2">
+                                <label for="res3" class="text-sm text-gray-700">Constituição</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="res4" class="mr-2">
+                                <label for="res4" class="text-sm text-gray-700">Inteligência</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="res5" class="mr-2">
+                                <label for="res5" class="text-sm text-gray-700">Sabedoria</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="res6" class="mr-2">
+                                <label for="res6" class="text-sm text-gray-700">Carisma</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- aptidões  -->
+                    <div class="bg-gray-200 p-4 rounded-lg flex flex-col">
+                        <span class="text-sm font-semibold text-gray-700">APTIDÕES</span>
+                        <div class="flex flex-col mt-2 space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="acro" class="mr-2">
+                                <label for="acro" class="text-sm text-gray-700">Acrobacia (Des)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="ades" class="mr-2">
+                                <label for="ades" class="text-sm text-gray-700">Adestrar Animais (Sab)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="arc" class="mr-2">
+                                <label for="arc" class="text-sm text-gray-700">Arcana (Int)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="atle" class="mr-2">
+                                <label for="atle" class="text-sm text-gray-700">Atletismo (For)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="enga" class="mr-2">
+                                <label for="enga" class="text-sm text-gray-700">Enganação (Car)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="hist" class="mr-2">
+                                <label for="hist" class="text-sm text-gray-700">História (Int)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="persp" class="mr-2">
+                                <label for="persp" class="text-sm text-gray-700">Perspicácia (Sab)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="intim" class="mr-2">
+                                <label for="intim" class="text-sm text-gray-700">Intimidação (Car)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="invest" class="mr-2">
+                                <label for="invest" class="text-sm text-gray-700">Investigação (Int)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="med" class="mr-2">
+                                <label for="med" class="text-sm text-gray-700">Medicina (Sab)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="nat" class="mr-2">
+                                <label for="nat" class="text-sm text-gray-700">Natureza (Int)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="perc" class="mr-2">
+                                <label for="perc" class="text-sm text-gray-700">Perceção (Sab)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="atua" class="mr-2">
+                                <label for="atua" class="text-sm text-gray-700">Atuação (Car)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="persu" class="mr-2">
+                                <label for="persu" class="text-sm text-gray-700">Persuasão (Car)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="rel" class="mr-2">
+                                <label for="rel" class="text-sm text-gray-700">Religião (Int)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="prest" class="mr-2">
+                                <label for="prest" class="text-sm text-gray-700">Prestidigitação (Des)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="furt" class="mr-2">
+                                <label for="furt" class="text-sm text-gray-700">Furtividade (Des)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="sobrev" class="mr-2">
+                                <label for="sobrev" class="text-sm text-gray-700">Sobrevivência (Sab)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meio -->
+                <div class="bg-gray-200 h-max p-6 rounded-lg space-y-4">
+                    <!-- Classe de Armadura, Iniciativa, Deslocamento -->
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="bg-white p-2 rounded-lg text-center border-2 border-gray-300">
+                            <span class="text-lg font-bold">17</span>
+                            <span class="text-xs text-gray-500">Classe de Armadura</span>
+                        </div>
+                        <div class="bg-white p-2 rounded-lg text-center border-2 border-gray-300">
+                            <span class="text-lg font-bold">4.18</span>
+                            <span class="text-xs text-gray-500">Iniciativa</span>
+                        </div>
+                        <div class="bg-white p-2 rounded-lg text-center border-2 border-gray-300">
+                            <span class="text-lg font-bold">30</span>
+                            <span class="text-xs text-gray-500">Deslocamento</span>
+                        </div>
+                    </div>
+
+                    <!-- Pontos de Vida -->
+                    <div class="bg-white p-4 rounded-lg border-2 border-gray-300">
+                        <div class="grid grid-cols-3 gap-2">
+                            <!-- Vida Máxima -->
+                            <div class="text-center">
+                                <span class="text-xs text-gray-500">Vida Máxima</span>
+                                <div class="mt-1">
+                                    <span class="text-xl font-bold">100</span>
+                                </div>
+                            </div>
+                            <!-- Pontos de Vida Atuais -->
+                            <div class="text-center">
+                                <span class="text-xs text-gray-500">Pontos de Vida</span>
+                                <div class="mt-1">
+                                    <span class="text-2xl font-bold">73</span>
+                                </div>
+                            </div>
+                            <!-- Pontos de Vida Temporários -->
+                            <div class="text-center">
+                                <span class="text-xs text-gray-500">Pontos de Vida Temporários</span>
+                                <div class="mt-1 flex justify-center">
+                                    <span class="text-2xl font-bold text-green-600">+10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dados de Vida e Salvação contra a Morte -->
+                    <div class="bg-white p-4 rounded-lg border-2 border-gray-300">
+                        <!-- Dados de Vida -->
+                        <div class="flex items-center justify-between">
+                            <div class="text-center w-1/2">
+                                <span class="text-sm font-semibold text-gray-500">Dado de Vida</span>
+                                <div class="mt-1 bg-white p-2 rounded-lg border-2 border-gray-300">
+                                    <span class="text-lg font-bold">1d12</span>
+                                </div>
+                            </div>
+                            <div class="text-center w-1/2">
+                                <span class="text-sm font-semibold text-gray-500">Total de Dados de Vida</span>
+                                <div class="mt-1 bg-white p-2 rounded-lg border-2 border-gray-300">
+                                    <span class="text-lg font-bold">6</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Salvação contra a Morte -->
+                        <div class="mt-4">
+                            <span class="text-sm font-semibold text-gray-700">Salvação contra a Morte</span>
+                            <div class="flex items-center space-x-4 mt-2">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="deathsave1" class="mr-2">
+                                    <label for="deathsave1" class="text-sm text-gray-700">1ª Tentativa</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="deathsave2" class="mr-2">
+                                    <label for="deathsave2" class="text-sm text-gray-700">2ª Tentativa</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="deathsave3" class="mr-2">
+                                    <label for="deathsave3" class="text-sm text-gray-700">3ª Tentativa</label>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-4 mt-2">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="deathfail1" class="mr-2">
+                                    <label for="deathfail1" class="text-sm text-gray-700">1ª Falha</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="deathfail2" class="mr-2">
+                                    <label for="deathfail2" class="text-sm text-gray-700">2ª Falha</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="deathfail3" class="mr-2">
+                                    <label for="deathfail3" class="text-sm text-gray-700">3ª Falha</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Direita -->
+                <div class="space-y-4">
+                    <!-- Características -->
+                    <div class="bg-gray-200 p-4 rounded-lg">
+                        <span class="text-sm font-semibold text-gray-700">Características</span>
+                        <div class="mt-2 bg-white p-2 rounded-lg text-center border-2 border-gray-300">
+                            <p class="text-xs text-gray-700">
+                                Fico amargo se não sou o centro das atenções.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+
+    <script>
+        function adjustAttribute(attr, change) {
+            const input = document.getElementById(attr);
+            const currentValue = parseInt(input.value);
+            const newValue = currentValue + change;
+
+            if (newValue >= 1 && newValue <= 20) {
+                input.value = newValue;
+                updateModifier(attr);
+            }
+        }
+
+        function updateModifier(attr) {
+            const score = parseInt(document.getElementById(attr).value);
+            const modifier = Math.floor((score - 10) / 2);
+            const modifierElement = document.getElementById(`${attr}Mod`);
+            modifierElement.textContent = modifier >= 0 ? `+${modifier}` : modifier;
+        }
+
+        // Initialize attributes
+        ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(attr => {
+            const input = document.getElementById(attr);
+            if (input) {
+                input.addEventListener('change', () => updateModifier(attr));
+                updateModifier(attr);
+            }
+        });
+    </script>
+</body>
+
+</html>
