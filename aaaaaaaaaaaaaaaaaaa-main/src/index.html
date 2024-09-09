@@ -8,17 +8,89 @@
     <link rel="stylesheet" href="./output.css">
 </head>
 
+<style>
+    /* Estilos padrão */
+    .nomebox {
+        margin-left: 60px;
+        width: 250px;
+    }
+
+    /* Adicionando transição suave */
+    .transition-all {
+        max-height: 0;
+        overflow: hidden;
+        transition: .5s;
+    }
+
+    .transition-all.hidden {
+        max-height: 0;
+        transition: .5s;
+    }
+
+    .transition-all:not(.hidden) {
+        max-height: 500px;
+        /* Valor máximo para expandir */
+        transition: .5s;
+    }
+
+    /* Estilo para cursor de pointer */
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    .header {
+        background-image: url('https://app.roll20.net/images/dndstyling/CharScroll.svg');
+        width: 900px;
+        height: 140px;
+    }
+
+    .char-box {
+        background-image: url('https://app.roll20.net/images/dndstyling/CharBox.svg');
+        background-position: 0;
+        margin-left: 70px;
+        width: 480px;
+        height: 100px;
+        padding: 10px;
+    }
+
+    /* Media query para telas menores que 1024px */
+    @media (max-width: 1024px) {
+        .char-box {
+            width: auto;
+            margin-left: 0;
+        }
+
+        .nomebox {
+            margin-left: 40px;
+        }
+
+        .header {
+            background-image: none;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #e5e7eb;
+            width: auto;
+            height: auto;
+        }
+
+        .char-box {
+            background-image: none;
+            background-position: none;
+            background-color: #e5e7eb;
+            margin-top: 20px;
+        }
+    }
+</style>
+
 <body class="bg-gray-100">
     <form autocomplete="off" class="p-3 flex flex-col items-center box-content">
         <!-- Cabeça -->
-        <div class="bg-no-repeat bg-cover w-[900px] h-[140px] flex items-center"
-            style="background-image: url('https://app.roll20.net/images/dndstyling/CharScroll.svg');">
-            <div class="w-[250px] ml-[60px]">
+        <div class="header bg-no-repeat bg-cover flex items-center">
+            <div class="nomebox">
                 <input type="text" class="w-10/12 h-7 bg-[#f5f5f5] p-3 text-center mt-8"
                     placeholder="Nome do Personagem">
             </div>
-            <div class="ml-[70px] p-[10px] bg-cover w-[480px] h-[100px] flex items-center"
-                style="background-image: url('https://app.roll20.net/images/dndstyling/CharBox.svg'); background-position: 0;">
+            <div class="char-box bg-cover flex items-center">
                 <div class="grid grid-cols-3 gap-x-2 gap-y-1 w-full">
                     <input type="text" class="bg-[#f5f5f5] p-1 text-center text-xs h-7" placeholder="Raça">
                     <input type="text" class="bg-[#f5f5f5] p-1 text-center text-xs h-7" placeholder="Classe">
@@ -397,7 +469,8 @@
                     <!-- Ataques & Conjuração -->
                     <div class="bg-gray-200 h-max p-4 rounded-lg space-y-3">
                         <div class="bg-white p-4 rounded-lg border-2 border-gray-300">
-                            <span class="text-sm font-semibold text-gray-700">Ataques & Conjuração</span>
+                            <span class="text-sm font-semibold text-gray-700 text-center flex justify-center">Ataques &
+                                Conjuração</span>
 
                             <!-- Lista de Ataques -->
                             <div id="lista-ataques" class="space-y-3 mt-3">
@@ -454,6 +527,58 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Modificadores de Dano -->
+                    <div class="bg-white p-4 rounded-lg border-2 border-gray-300">
+                        <span class="text-sm font-semibold text-gray-700">Modificadores de Dano</span>
+                        <div class="space-y-3 mt-3">
+                            <!-- Modificadores dinâmicos -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="text-center">
+                                    <span class="text-xs text-gray-500">Dano Extra</span>
+                                    <div class="mt-1 bg-gray-200 rounded-xl w-max flex mx-auto p-2">
+                                        <span class="text-sm font-bold">+2 Fogo</span>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <span class="text-xs text-gray-500">Redução de Dano</span>
+                                    <div class="mt-1 bg-gray-200 rounded-xl w-max flex mx-auto p-2">
+                                        <span class="text-sm font-bold">-1 Gelo</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inventário -->
+                    <div class="bg-white p-4 rounded-lg border-2 border-gray-300">
+                        <span class="text-sm font-semibold text-gray-700">Inventário</span>
+                        <div id="lista-inventario" class="space-y-3 mt-3">
+                            <!-- Template de Item no Inventário -->
+                            <div class="grid grid-cols-3 gap-2">
+                                <!-- Nome do Item -->
+                                <div class="text-center">
+                                    <span class="text-xs text-gray-500">Item</span>
+                                    <div class="mt-1 bg-gray-200 rounded-xl w-max flex mx-auto p-2">
+                                        <span class="text-sm font-bold">Poção de Cura</span>
+                                    </div>
+                                </div>
+                                <!-- Quantidade -->
+                                <div class="text-center">
+                                    <span class="text-xs text-gray-500">Quantidade</span>
+                                    <div class="mt-1 bg-gray-200 rounded-xl w-max flex mx-auto p-2">
+                                        <span class="text-sm font-bold">3</span>
+                                    </div>
+                                </div>
+                                <!-- Peso -->
+                                <div class="text-center">
+                                    <span class="text-xs text-gray-500">Peso</span>
+                                    <div class="mt-1 bg-gray-200 rounded-xl w-max flex mx-auto p-2">
+                                        <span class="text-sm font-bold">0.5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -502,6 +627,67 @@
                             </div>
                         </div>
                     </div>
+                    <div class="bg-gray-200 p-5 rounded-lg space-y-4">
+                        <span
+                            class="text-lg font-semibold text-gray-700 text-center flex justify-center">Habilidades</span>
+
+                        <!-- Habilidade 1 -->
+                        <div class="bg-white p-4 rounded-lg border-2 border-gray-300">
+                            <div class="w-full text-left flex justify-between items-center cursor-pointer"
+                                onclick="toggleDetails('habilidade1')">
+                                <span class="text-sm font-bold">Cunning Action</span>
+                                <span id="icon-habilidade1"
+                                    class="transform transition-transform duration-300">&#x25BC;</span>
+                                <!-- Ícone de seta -->
+                            </div>
+                            <div id="habilidade1"
+                                class="hidden mt-2 text-sm text-gray-600 transition-all duration-300 ease-in-out">
+                                Bonus to dash, disengage, or hide.
+                            </div>
+                        </div>
+
+                        <!-- Habilidade 2 -->
+                        <div class="bg-white p-4 rounded-lg border-2 border-gray-300">
+                            <div class="w-full text-left flex justify-between items-center cursor-pointer"
+                                onclick="toggleDetails('habilidade2')">
+                                <span class="text-sm font-bold">Uncanny Dodge</span>
+                                <span id="icon-habilidade2"
+                                    class="transform transition-transform duration-300">&#x25BC;</span>
+                            </div>
+                            <div id="habilidade2"
+                                class="hidden mt-2 text-sm text-gray-600 transition-all duration-300 ease-in-out">
+                                Reaction to halve damage from attack.
+                            </div>
+                        </div>
+
+                        <!-- Habilidade 3 -->
+                        <div class="bg-white p-4 rounded-lg border-2 border-gray-300">
+                            <div class="w-full text-left flex justify-between items-center cursor-pointer"
+                                onclick="toggleDetails('habilidade3')">
+                                <span class="text-sm font-bold">Evasion</span>
+                                <span id="icon-habilidade3"
+                                    class="transform transition-transform duration-300">&#x25BC;</span>
+                            </div>
+                            <div id="habilidade3"
+                                class="hidden mt-2 text-sm text-gray-600 transition-all duration-300 ease-in-out">
+                                Dex saves no damage, half on no save.
+                            </div>
+                        </div>
+
+                        <!-- Habilidade 4 -->
+                        <div class="bg-white p-4 rounded-lg border-2 border-gray-300">
+                            <div class="w-full text-left flex justify-between items-center cursor-pointer"
+                                onclick="toggleDetails('habilidade4')">
+                                <span class="text-sm font-bold">Fast Hands</span>
+                                <span id="icon-habilidade4"
+                                    class="transform transition-transform duration-300">&#x25BC;</span>
+                            </div>
+                            <div id="habilidade4"
+                                class="hidden mt-2 text-sm text-gray-600 transition-all duration-300 ease-in-out">
+                                Bonus action to use an object.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
     </form>
@@ -533,6 +719,40 @@
                 updateModifier(attr);
             }
         });
+
+        // Função para expandir ou contrair as habilidades
+        function toggleDetails(habilidadeId) {
+            const habilidadeElement = document.getElementById(habilidadeId);
+            const iconElement = document.getElementById('icon-' + habilidadeId);
+
+            // Alternar a classe hidden para mostrar ou esconder a habilidade
+            habilidadeElement.classList.toggle('hidden');
+
+            // Rodar o ícone de seta
+            iconElement.classList.toggle('rotate-180');
+
+            // Salvar no Local Storage o estado da habilidade (expandido ou contraído)
+            localStorage.setItem(habilidadeId, habilidadeElement.classList.contains('hidden') ? 'hidden' : 'visible');
+        }
+
+        // Função para carregar os estados salvos do Local Storage ao recarregar a página
+        window.onload = function () {
+            const habilidades = ['habilidade1', 'habilidade2', 'habilidade3', 'habilidade4'];
+
+            habilidades.forEach(habilidadeId => {
+                const estado = localStorage.getItem(habilidadeId);
+                const habilidadeElement = document.getElementById(habilidadeId);
+                const iconElement = document.getElementById('icon-' + habilidadeId);
+
+                if (estado === 'visible') {
+                    habilidadeElement.classList.remove('hidden');
+                    iconElement.classList.add('rotate-180');
+                } else {
+                    habilidadeElement.classList.add('hidden');
+                    iconElement.classList.remove('rotate-180');
+                }
+            });
+        }
     </script>
 </body>
 
